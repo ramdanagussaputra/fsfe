@@ -20,12 +20,11 @@ const WebSocketServer = require("ws").Server;
 const wss = new WebSocketServer({ server });
 
 wss.on("connection", (ws) => {
-  const numClients = wss.clients.size;
-  console.log(`Client connected: ${numClients}`);
-  wss.broadcast(`Current visitors: ${numClients}`);
+  console.log(`Client connected: ${wss.clients.size}`);
+  wss.broadcast(`Current visitors: ${wss.clients.size}`);
 
   if (ws.readyState === ws.OPEN) {
-    ws.send(`welcome! Current visitors: ${numClients}`);
+    ws.send(`welcome! Current visitors: ${wss.clients.size}`);
   }
 
   ws.on("close", () => {
